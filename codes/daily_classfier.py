@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import tushare as ts
 
 # 首次使用，需要设置token
-# ts.set_token("******")
+ts.set_token("1b75db5141c73a91e760400dea153620f6ce8d52d611b2abd61ebf9c")
 
 
 def daily_classifier(ts_code, trade_date):
@@ -25,7 +25,7 @@ def daily_classifier(ts_code, trade_date):
     df.sort_values('trade_time', inplace=True)
     data = df[['ts_code', 'trade_time', 'high', 'low']].iloc[1:, :]
     data = data.reset_index(drop=True)
-    assert len(data) == 8, "每个交易日，A股有且只有8跟30分钟K线"
+    assert len(data) == 8, "每个交易日，A股有且只有8根30分钟K线"
 
     def _central(tri):
         c_low = max(tri['low'])
@@ -46,5 +46,5 @@ def daily_classifier(ts_code, trade_date):
 
 
 if __name__ == '__main__':
-    fc, lc = daily_classifier('600122.SH', "20190521")
+    fc, lc = daily_classifier('300274.SZ', "20221202")
     print(fc, lc)
